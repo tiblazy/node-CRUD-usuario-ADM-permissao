@@ -2,16 +2,15 @@ import { Router } from "express";
 
 import {
   createUserController,
-  deleteUserController,
   listUserController,
+  profileUserController,
   updateUserController,
-  userProfileController,
+  deleteUserController,
 } from "../controllers/user.controller";
 
 import authEmailAlreadyExistsMiddleware from "../middlewares/authEmailAlreadyExists.middleware";
 import verifyAuthTokenMiddleware from "../middlewares/verifyAuthToken.middleware";
 import verifyIsAdmMiddleware from "../middlewares/verifyIsAdmin.middleware";
-// import verifyEditUserMiddleware from "../middlewares/verifyEditUser.middleware";
 
 const router = Router();
 
@@ -24,20 +23,10 @@ router.get(
   listUserController
 );
 
-router.get("/profile", verifyAuthTokenMiddleware, userProfileController);
+router.get("/profile", verifyAuthTokenMiddleware, profileUserController);
 
-router.patch(
-  "/:uuid",
-  verifyAuthTokenMiddleware,
-  // verifyEditUserMiddleware,
-  updateUserController
-);
+router.patch("/:uuid", verifyAuthTokenMiddleware, updateUserController);
 
-router.delete(
-  "/:uuid",
-  verifyAuthTokenMiddleware,
-  // verifyEditUserMiddleware,
-  deleteUserController
-);
+router.delete("/:uuid", verifyAuthTokenMiddleware, deleteUserController);
 
 export default router;

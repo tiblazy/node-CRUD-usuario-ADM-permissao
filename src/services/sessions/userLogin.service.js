@@ -2,8 +2,9 @@ import users from "../../database";
 import jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
 
-const userLoginService = async ({ email, password }) => {
+const userLoginService = ({ email, password }) => {
   const user = users.find((user) => user.email === email);
+
   if (!user) {
     throw new Error("Wrong email/password");
   }
@@ -22,7 +23,7 @@ const userLoginService = async ({ email, password }) => {
 
   const token = jwt.sign(tokenContent, "SECRET_KEY", expires);
 
-  return await { token };
+  return { token };
 };
 
 export default userLoginService;
