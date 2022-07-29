@@ -1,10 +1,10 @@
-import users from "../database";
+import users from "../../database";
 
-const userProfileService = (uuid) => {
+const userProfileService = async (uuid) => {
   const currentUser = users.find((user) => user.uuid === uuid);
   delete currentUser.password;
 
-  return currentUser;
+  return await currentUser;
 };
 
 export default userProfileService;

@@ -1,16 +1,21 @@
-import users from "../database";
+import users from "../../database";
 
-const updateUserService = (isAdm, uuid, name, email) => {
+const updateUserService = ({ uuid, name, email, isAdm }) => {
   const userIndex = users.findIndex((user) => user.uuid === uuid);
 
-  let updatedUser = { ...userIndex, name, email };
+  const updatedUser = { ...userIndex, name, email };
+  updatedUser.updatedOn = new Date().toLocaleString();
 
   if (isAdm) {
     users[userIndex] = { ...users[userIndex], ...updatedUser };
+    delete updatedUser.password;
+
     return users[userIndex];
   } else {
     if (userIndex.uuid === uuid) {
       users[userIndex] = { ...users[userIndex], ...updatedUser };
+      delete updatedUser.password;
+
       return users[userIndex];
     }
   }

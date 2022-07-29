@@ -1,18 +1,21 @@
 import { Router } from "express";
 
-import createUserController from "../controllers/createUser.controller";
-import listUserController from "../controllers/listUser.controller";
-import userProfileController from "../controllers/userProfile.controller";
-import updateUserController from "../controllers/updateUser.controller";
-import deleteUserController from "../controllers/deleteUser.controller";
+import {
+  createUserController,
+  deleteUserController,
+  listUserController,
+  updateUserController,
+  userProfileController,
+} from "../controllers/user.controller";
 
-import userAlreadyExistsMiddleware from "../middlewares/userAlreadyExists.middleware";
+import authEmailAlreadyExistsMiddleware from "../middlewares/authEmailAlreadyExists.middleware";
 import verifyAuthTokenMiddleware from "../middlewares/verifyAuthToken.middleware";
 import verifyIsAdmMiddleware from "../middlewares/verifyIsAdmin.middleware";
+// import verifyEditUserMiddleware from "../middlewares/verifyEditUser.middleware";
 
 const router = Router();
 
-router.post("", userAlreadyExistsMiddleware, createUserController);
+router.post("", authEmailAlreadyExistsMiddleware, createUserController);
 
 router.get(
   "",
@@ -26,13 +29,14 @@ router.get("/profile", verifyAuthTokenMiddleware, userProfileController);
 router.patch(
   "/:uuid",
   verifyAuthTokenMiddleware,
-  verifyIsAdmMiddleware,
+  // verifyEditUserMiddleware,
   updateUserController
 );
+
 router.delete(
   "/:uuid",
   verifyAuthTokenMiddleware,
-  verifyIsAdmMiddleware,
+  // verifyEditUserMiddleware,
   deleteUserController
 );
 

@@ -1,6 +1,6 @@
 import users from "../database";
 
-const userAlreadyExistsMiddleware = (req, res, next) => {
+const authEmailAlreadyExistsMiddleware = (req, res, next) => {
   const { email } = req.body;
   const userAlreadyExists = users.find((user) => user.email === email);
 
@@ -11,4 +11,4 @@ const userAlreadyExistsMiddleware = (req, res, next) => {
   next();
 };
 
-export default userAlreadyExistsMiddleware;
+export default authEmailAlreadyExistsMiddleware;
