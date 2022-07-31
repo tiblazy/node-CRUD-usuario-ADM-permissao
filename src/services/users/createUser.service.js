@@ -6,18 +6,27 @@ const createUserService = async (userData) => {
   const hashedPassword = await bcrypt.hash(userData.password, 10);
   const createdOn = new Date().toLocaleDateString();
 
+  const { name, email, isAdm } = await userData;
+
   const newUser = {
     ...userData,
     uuid: uuidv4(),
     password: hashedPassword,
     createdOn,
-    updatedOn: null,
+    updatedOn: createdOn,
   };
 
+  //possível erro
+  // ...newUser,
   const showUser = {
-    ...newUser,
+    uuid: newUser.uuid,
+    name,
+    email,
+    isAdm,
+    createdOn: newUser.createdOn,
+    updatedOn: newUser.updatedOn,
   };
-  delete showUser.password;
+  // delete showUser.password;
   users.push(newUser);
 
   return showUser;

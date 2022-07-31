@@ -9,6 +9,7 @@ import {
 } from "../controllers/user.controller";
 
 import authEmailAlreadyExistsMiddleware from "../middlewares/authEmailAlreadyExists.middleware";
+import authUpdateMiddleware from "../middlewares/authUpdate.middleware";
 import verifyAuthTokenMiddleware from "../middlewares/verifyAuthToken.middleware";
 import verifyIsAdmMiddleware from "../middlewares/verifyIsAdmin.middleware";
 
@@ -25,8 +26,18 @@ router.get(
 
 router.get("/profile", verifyAuthTokenMiddleware, profileUserController);
 
-router.patch("/:uuid", verifyAuthTokenMiddleware, updateUserController);
+router.patch(
+  "/:uuid",
+  verifyAuthTokenMiddleware,
+  authUpdateMiddleware,
+  updateUserController
+);
 
-router.delete("/:uuid", verifyAuthTokenMiddleware, deleteUserController);
+router.delete(
+  "/:uuid",
+  verifyAuthTokenMiddleware,
+  verifyIsAdmMiddleware,
+  deleteUserController
+);
 
 export default router;

@@ -17,25 +17,19 @@ const listUserController = (req, res) => {
   return res.status(200).json(users);
 };
 
-const profileUserController = async (req, res) => {
-  const currentUser = await profileUserService(req.uuid);
+const profileUserController = (req, res) => {
+  const currentUser = profileUserService(req.uuid);
 
   return res.status(200).json(currentUser);
 };
 
-const updateUserController = async (req, res) => {
-  try {
-    const isAdm = req.isAdm;
-    const { uuid } = req.params;
-    const userData = req.body;
+const updateUserController = (req, res) => {
+  const { uuid } = req.params;
+  const userData = req.body;
 
-    const updatedUser = await updateUserService(uuid, userData, isAdm);
+  const updatedUser = updateUserService(uuid, userData);
 
-    console.log(updatedUser);
-    return res.status(200).json(updatedUser);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
+  return res.status(200).json(updatedUser);
 };
 
 const deleteUserController = (req, res) => {

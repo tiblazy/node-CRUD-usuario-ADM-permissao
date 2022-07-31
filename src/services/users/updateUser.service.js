@@ -1,31 +1,21 @@
 import users from "../../database";
 
-const updateUserService = async (uuid, userData, isAdm) => {
+const updateUserService = (uuid, userData) => {
   const userIndex = users.findIndex((user) => user.uuid === uuid);
 
-  let updatedUser = {
-    ...users[userIndex],
-    ...userData,
+  const updatedUser = {
+    email: userData.email,
+    name: userData.name,
     uuid,
-    isAdm,
   };
   updatedUser.updatedOn = new Date().toLocaleString();
 
-  if (isAdm) {
-    users[userIndex] = updatedUser;
-    const showUser = users[userIndex];
-    delete showUser.password;
+  users[userIndex] = { ...users[userIndex], ...updatedUser };
 
-    return users[userIndex];
-  } else {
-    if (userIndex.uuid === uuid) {
-      users[userIndex] = updatedUser;
-      const showUser = users[userIndex];
-      delete showUser.password;
+  const { id, email, isAdm, updatedOn, createdOn, name } = users[userIndex];
+  const dataUser = { id, email, isAdm, updatedOn, createdOn, name };
 
-      return users[userIndex];
-    }
-  }
+  return dataUser;
 };
 
 export default updateUserService;

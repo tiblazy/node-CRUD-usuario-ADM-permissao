@@ -1,8 +1,7 @@
 import users from "../database";
 
-const verifyIsAdmMiddleware = async (req, res, next) => {
-  let adm = await req.uuid;
-  const currentUser = users.find((user) => user.uuid === adm);
+const verifyIsAdmMiddleware = (req, res, next) => {
+  const currentUser = users.find((user) => user.uuid === req.uuid);
 
   if (!currentUser.isAdm) {
     return res.status(401).json({ message: "Missing admin permissions" });

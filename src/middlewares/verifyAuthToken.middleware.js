@@ -16,6 +16,7 @@ const verifyAuthTokenMiddleware = (req, res, next) => {
       return res.status(401).json({ message: "Invalid Token" });
     }
 
+    req.email = decoded.email;
     req.isAdm = decoded.isAdm;
     req.uuid = decoded.sub;
 
