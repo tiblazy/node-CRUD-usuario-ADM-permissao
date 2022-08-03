@@ -11,7 +11,10 @@ import {
 import authEmailAlreadyExistsMiddleware from "../middlewares/authEmailAlreadyExists.middleware";
 import authUpdateMiddleware from "../middlewares/authUpdate.middleware";
 import verifyAuthTokenMiddleware from "../middlewares/verifyAuthToken.middleware";
-import verifyIsAdmMiddleware from "../middlewares/verifyIsAdmin.middleware";
+import {
+  verifyIsAdmMiddleware,
+  verifyIsAdmDeleteMiddleware,
+} from "../middlewares/verifyIsAdmin.middleware";
 
 const router = Router();
 
@@ -36,7 +39,7 @@ router.patch(
 router.delete(
   "/:uuid",
   verifyAuthTokenMiddleware,
-  verifyIsAdmMiddleware,
+  verifyIsAdmDeleteMiddleware,
   deleteUserController
 );
 

@@ -16,8 +16,6 @@ const createUserService = async (userData) => {
     updatedOn: createdOn,
   };
 
-  //possível erro
-  // ...newUser,
   const showUser = {
     uuid: newUser.uuid,
     name,
@@ -26,7 +24,7 @@ const createUserService = async (userData) => {
     createdOn: newUser.createdOn,
     updatedOn: newUser.updatedOn,
   };
-  // delete showUser.password;
+
   users.push(newUser);
 
   return showUser;

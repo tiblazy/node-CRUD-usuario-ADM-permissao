@@ -10,4 +10,10 @@ const verifyIsAdmMiddleware = (req, res, next) => {
   next();
 };
 
-export default verifyIsAdmMiddleware;
+const verifyIsAdmDeleteMiddleware = (req, res, next) => {
+  const currentUser = users.find((user) => user.uuid === req.uuid);
+
+  next();
+};
+
+export { verifyIsAdmMiddleware, verifyIsAdmDeleteMiddleware };

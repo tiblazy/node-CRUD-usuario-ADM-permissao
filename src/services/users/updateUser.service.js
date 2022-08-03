@@ -19,7 +19,6 @@ const updateUserService = (uuid, userData) => {
   const { email, isAdm, updatedOn, createdOn, name } = users[userIndex];
   const dataUser = { uuid, email, isAdm, updatedOn, createdOn, name };
 
-  console.log(dataUser); //usuário
   return dataUser;
 };
 

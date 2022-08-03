@@ -28,16 +28,14 @@ const updateUserController = (req, res) => {
   const userData = req.body;
 
   const updatedUser = updateUserService(uuid, userData);
-  console.log(updatedUser) //usuário atualizado
-
 
   return res.status(200).json(updatedUser);
 };
 
-const deleteUserController = (req, res) => {
+const deleteUserController = async (req, res) => {
   const { uuid } = req.params;
 
-  const deletedUser = deleteUserService(uuid);
+  const deletedUser = await deleteUserService(uuid);
 
   return res.status(200).json({ message: "User deleted with success" });
 };

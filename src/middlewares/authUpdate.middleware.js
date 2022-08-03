@@ -7,6 +7,10 @@ const authUpdateMiddleware = (request, response, next) => {
   if (user) {
     if (user.isAdm || user.uuid === uuid) {
       next();
+    } else {
+      return response.status(401).json({
+        message: "Unauthorized",
+      });
     }
   } else {
     return response.status(401).json({
