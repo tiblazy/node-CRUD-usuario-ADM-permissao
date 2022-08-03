@@ -28,6 +28,8 @@ const updateUserController = (req, res) => {
   const userData = req.body;
 
   const updatedUser = updateUserService(uuid, userData);
+  console.log(updatedUser) //usuário atualizado
+
 
   return res.status(200).json(updatedUser);
 };
